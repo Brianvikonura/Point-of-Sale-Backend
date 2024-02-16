@@ -64,7 +64,7 @@
 
                             <div class="form-group">
                                 <label class="form-label mt-4">Category Icon</label>
-                                <div class="col-sm-9">
+                                <div class="">
                                     <input type="file" class="form-control" name="image"
                                         @error('image') is-invalid @enderror>
                                 </div>

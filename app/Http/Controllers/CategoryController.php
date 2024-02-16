@@ -87,9 +87,14 @@ class CategoryController extends Controller
     //destroy
     public function destroy($id)
     {
-        //delete the request...
         $category = Category::find($id);
+
+        if ($category->image) {
+            unlink($category->image);
+        }
+
         $category->delete();
+
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }
 }
