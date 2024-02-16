@@ -23,3 +23,6 @@ Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login'])
 
 // product API
 Route::apiResource('/api-products', App\Http\Controllers\Api\ProductController::class)->middleware('auth:sanctum');
+
+// category API
+Route::apiResource('/api-categories', App\Http\Controllers\Api\CategoryController::class)->middleware('auth:sanctum');
