@@ -28,7 +28,7 @@
                 <h2 class="section-title">Categories</h2>
 
                 <div class="card">
-                    <form action="{{ route('categories.update', $category) }}" method="POST">
+                    <form action="{{ route('categories.update', $category) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-header">

@@ -52,8 +52,8 @@ class ProductController extends Controller
         // save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/products', $product->id . '.' . $image->getClientOriginalExtension());
-            $product->image = 'storage/products/' . $product->id . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/products', $product->name . '.' . $image->getClientOriginalExtension());
+            $product->image = 'storage/products/' . $product->name . '.' . $image->getClientOriginalExtension();
             $product->save();
         }
 
@@ -96,8 +96,8 @@ class ProductController extends Controller
         // save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/products', $product->id . '.' . $image->getClientOriginalExtension());
-            $product->image = 'storage/products/' . $product->id . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/products', $product->name . '.' . $image->getClientOriginalExtension());
+            $product->image = 'storage/products/' . $product->name . '.' . $image->getClientOriginalExtension();
             $product->save();
         }
 

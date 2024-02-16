@@ -23,13 +23,13 @@ class CategoryController extends Controller
     //store
     public function store(Request $request)
     {
-        //validate the request...
+        //validate the request
         $request->validate([
             'name' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //store the request...
+        //store the request
         $category = new Category;
         $category->name = $request->name;
         $category->description = $request->description;
@@ -37,8 +37,8 @@ class CategoryController extends Controller
         //save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/categories', $category->id . '.' . $image->getClientOriginalExtension());
-            $category->image = 'storage/categories/' . $category->id . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/categories', $category->name . '.' . $image->getClientOriginalExtension());
+            $category->image = 'storage/categories/' . $category->name . '.' . $image->getClientOriginalExtension();
             $category->save();
         }
 
@@ -64,7 +64,7 @@ class CategoryController extends Controller
         //validate the request...
         $request->validate([
             'name' => 'required',
-            // 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         //update the request...
@@ -75,10 +75,11 @@ class CategoryController extends Controller
         //save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/categories', $category->id . '.' . $image->getClientOriginalExtension());
-            $category->image = 'storage/categories/' . $category->id . '.' . $image->getClientOriginalExtension();
-            $category->save();
+            $image->storeAs('public/categories', $category->name . '.' . $image->getClientOriginalExtension());
+            $category->image = 'storage/categories/' . $category->name . '.' . $image->getClientOriginalExtension();
         }
+
+        $category->save();
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully');
     }
