@@ -19,8 +19,8 @@
                 <h1>Advanced Forms</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Categories</div>
+                    <div class="breadcrumb-item"><a href="{{ route('categories.index') }}">Categories</a></div>
+                    <div class="breadcrumb-item">Form</div>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                     <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
-                            <h4>Input Text</h4>
+                            <h4>Input Form</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Category Images</label>
+                                <label class="form-label">Category Image</label>
                                 <div class="">
                                     <input type="file" class="form-control" name="image"
                                         @error('image') is-invalid @enderror>

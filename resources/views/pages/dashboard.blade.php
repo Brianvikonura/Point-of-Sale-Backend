@@ -24,10 +24,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Admin</h4>
+                                <h4>Total Admin & Staff</h4>
                             </div>
                             <div class="card-body">
-                                10
+                                {{ \App\Models\User::count() }}
                             </div>
                         </div>
                     </div>
@@ -35,14 +35,14 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-danger">
-                            <i class="far fa-newspaper"></i>
+                            <i class="fa fa-list text-white"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>News</h4>
+                                <h4>Total Category</h4>
                             </div>
                             <div class="card-body">
-                                42
+                                {{ \App\Models\Category::count() }}
                             </div>
                         </div>
                     </div>
@@ -50,6 +50,21 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-warning">
+                            <i class="fa-solid fa-utensils text-white"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Product</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ \App\Models\Product::count() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-success">
                             <i class="far fa-file"></i>
                         </div>
                         <div class="card-wrap">
@@ -58,21 +73,6 @@
                             </div>
                             <div class="card-body">
                                 1,201
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-circle"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Online Users</h4>
-                            </div>
-                            <div class="card-body">
-                                47
                             </div>
                         </div>
                     </div>

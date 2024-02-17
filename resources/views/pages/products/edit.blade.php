@@ -19,8 +19,8 @@
                 <h1>Advanced Forms</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Products</div>
+                    <div class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></div>
+                    <div class="breadcrumb-item">Form</div>
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                         @csrf
                         @method('PUT')
                         <div class="card-header">
-                            <h4>Input Text</h4>
+                            <h4>Input Form</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
