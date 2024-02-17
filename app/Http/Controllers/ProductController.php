@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\DB;
 class ProductController extends Controller
 {
     // index
-    public function index()
+    public function index(Request $request)
     {
         // get all products with pagination
-        $products = Product::paginate(10);
+        $products = Product::when($request->input('name'), function ($query, $name) {
+            return $query->where('name', 'like', '%'. $name. '%');
+        })->paginate(10);
         return view('pages.products.index', compact('products'));
     }
 
@@ -112,7 +114,7 @@ class ProductController extends Controller
         if ($product->image) {
             unlink($product->image);
         }
-        
+
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Product deleted successfully');
