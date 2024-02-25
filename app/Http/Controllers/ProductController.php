@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         // get all products with pagination
         $products = Product::when($request->input('name'), function ($query, $name) {
-            return $query->where('name', 'like', '%'. $name. '%');
+            return $query->where('name', 'like', '%' . $name . '%');
         })->paginate(10);
         return view('pages.products.index', compact('products'));
     }
@@ -54,8 +54,15 @@ class ProductController extends Controller
         // save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/products', $product->name . '.' . $image->getClientOriginalExtension());
-            $product->image = 'storage/products/' . $product->name . '.' . $image->getClientOriginalExtension();
+
+            $productId = $product->id;
+
+            $newImageName = $productId . '_' . str_replace(' ', '_', $product->name) . '.' . $image->getClientOriginalExtension();
+
+            $image->storeAs('public/products', $newImageName);
+
+            $product->image = 'storage/products/' . $newImageName;
+            
             $product->save();
         }
 
@@ -98,8 +105,21 @@ class ProductController extends Controller
         // save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/products', $product->name . '.' . $image->getClientOriginalExtension());
-            $product->image = 'storage/products/' . $product->name . '.' . $image->getClientOriginalExtension();
+
+            $productId = $product->id;
+
+            $newImageName = $productId . '_' . str_replace(' ', '_', $product->name) . '.' . $image->getClientOriginalExtension();
+
+            if ($product->image) {
+                $oldImagePath = public_path($product->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $image->storeAs('public/products', $newImageName);
+
+            $product->image = 'storage/products/' . $newImageName;
             $product->save();
         }
 
@@ -112,7 +132,12 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         if ($product->image) {
-            unlink($product->image);
+
+            $imagePath = public_path($product->image);
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
 
         $product->delete();

@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         // get all categories with pagination
         $categories = Category::when($request->input('name'), function ($query, $name) {
-            return $query->where('name', 'like', '%'. $name. '%');
+            return $query->where('name', 'like', '%' . $name . '%');
         })->paginate(10);
         return view('pages.categories.index', compact('categories'));
     }
@@ -40,8 +40,15 @@ class CategoryController extends Controller
         //save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/categories', $category->name . '.' . $image->getClientOriginalExtension());
-            $category->image = 'storage/categories/' . $category->name . '.' . $image->getClientOriginalExtension();
+
+            $categoryId = $category->id;
+
+            $newImageName = $categoryId . '_' . str_replace(' ', '_', $category->name) . '.' . $image->getClientOriginalExtension();
+
+            $image->storeAs('public/categories', $newImageName);
+
+            $category->image = 'storage/categories/' . $newImageName;
+
             $category->save();
         }
 
@@ -78,8 +85,20 @@ class CategoryController extends Controller
         //save image
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $image->storeAs('public/categories', $category->name . '.' . $image->getClientOriginalExtension());
-            $category->image = 'storage/categories/' . $category->name . '.' . $image->getClientOriginalExtension();
+
+            $categoryId = $category->id;
+
+            $newImageName = $categoryId . '_' . str_replace(' ', '_', $category->name) . '.' . $image->getClientOriginalExtension();
+            if ($category->image) {
+                $oldImagePath = public_path($category->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            $image->storeAs('public/categories', $newImageName);
+
+            $category->image = 'storage/categories/' . $newImageName;
         }
 
         $category->save();
@@ -93,7 +112,12 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if ($category->image) {
-            unlink($category->image);
+
+            $imagePath = public_path($category->image);
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
 
         $category->delete();
