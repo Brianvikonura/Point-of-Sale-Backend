@@ -11,8 +11,11 @@ class ProductController extends Controller
     // index API
     public function index()
     {
-        // get all products with pagination
+        // get all products
         $products = Product::all();
+
+        $products->load('category');
+        
         return response()->json([
             'status' => 'success',
             'data' => $products
