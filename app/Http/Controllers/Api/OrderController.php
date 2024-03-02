@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +24,7 @@ class OrderController extends Controller
             'id_kasir' => 'required',
             'nama_kasir' => 'required',
             'transaction_time' => 'required',
-            'order_items' => 'required',
+            // 'order_items' => 'required',
         ]);
 
         // create order
@@ -43,17 +44,17 @@ class OrderController extends Controller
 
         // create order items
         foreach ($request->order_items as $item) {
-            Order::create([
+            OrderItem::create([
                 'order_id' => $order->id,
-                'product_id' => $item['product_id'],
+                'product_id' => $item['id_product'],
                 'quantity' => $item['quantity'],
                 'price' => $item['price'],
             ]);
         }
 
         return response()->json([
-          'status' => 'success',
-          'message' => 'Order saved successfully',
+            'status' => 'success',
+            'message' => 'Order saved successfully',
             'data' => $order
         ], 200);
     }
