@@ -13,18 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory()->create([
+            'name' => 'Brian Viko Nura',
+            'email' => 'vikonura@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Brian Viko Nura',
-        //     'email' => 'vikonura@gmail.com',
-        //     'password' => Hash::make('password'),
-        //     'role' => 'admin',
-        // ]);
+        \App\Models\User::factory(10)->create();
 
         $this->call([
             CategorySeeder::class,
             ProductSeeder::class,
+            DiscountSeeder::class,
         ]);
     }
 }
